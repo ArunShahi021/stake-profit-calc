@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Betting Calculator</title>
+<style>
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: lightblue;
+}
+
+.container {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.input-box {
+  margin-bottom: 10px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+input {
+  width: 100%;
+  padding: 5px;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+}
+
+button {
+  padding: 8px 16px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+#results {
+  margin-top: 20px;
+}
+</style>
+</head>
+<body>
+  <div class="container">
+    <div class="input-box">
+      <label for="price1">1st Betting Price:</label>
+      <input type="number" id="price1" />
+      <label for="interest1">1st Betting Interest:</label>
+      <input type="number" id="interest1" />
+    </div>
+    <div class="input-box">
+      <label for="price2">2nd Betting Price:</label>
+      <input type="number" id="price2" />
+      <label for="interest2">2nd Betting Interest:</label>
+      <input type="number" id="interest2" />
+    </div>
+    <button onclick="calculate()">Calculate</button>
+    <div id="results"></div>
+  </div>
+  <script>
+  function calculate() {
+    const price1 = parseFloat(document.getElementById('price1').value);
+    const interest1 = parseFloat(document.getElementById('interest1').value);
+    const price2 = parseFloat(document.getElementById('price2').value);
+    const interest2 = parseFloat(document.getElementById('interest2').value);
+
+    const total1 = price1 * interest1;
+    const payout1 = total1 - price1;
+    const total2 = price2 * interest2;
+    const payout2 = total2 - price2;
+
+    const profit1 = total2 - (price1 + price2);
+    const profit2 = total1 - (price1 + price2);
+
+    const resultElement = document.getElementById('results');
+    resultElement.innerHTML = `
+      <p>Total Payout of Team 1st: ${total1}</p>
+      <p>Total Profit Payout of Team 1st: ${payout1}</p>
+      <p>Total Payout of Team 2nd: ${total2}</p>
+      <p>Total Profit Payout of Team 2nd: ${payout2}</p>
+      <p>If 1st Team loses:</p>
+      <p>If TEAM 1st LOSES, YOU CAN'T RECOVER RUPPES: ${profit1 < 0 ? profit1 : '0'}</p>
+      <p>If 2nd Team loses:</p>
+      <p>If TEAM 2nd LOSES, YOU CAN'T RECOVER RUPPES: ${profit2 < 0 ? profit2 : '0'}</p>
+    `;
+  }
+  </script>
+</body>
+</html>
